@@ -1,0 +1,363 @@
+/* ════════════════════════════════════════════
+   create-event.css – Formulário de Criação de Evento
+   ════════════════════════════════════════════ */
+
+/* ─── Wrapper Central ─── */
+.create-event-wrapper {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: var(--spacing-10) var(--spacing-6) var(--spacing-16);
+}
+
+/* ─── Cabeçalho ─── */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: var(--font-size-sm);
+  color: var(--gray-400);
+  text-decoration: none;
+  margin-bottom: var(--spacing-5);
+  transition: color var(--transition-fast);
+}
+
+.back-link:hover { color: var(--primary-400); }
+
+.create-event-title {
+  font-size: var(--font-size-4xl);
+  font-weight: 800;
+  color: var(--gray-50);
+  line-height: 1.2;
+  margin-bottom: var(--spacing-2);
+}
+
+.create-event-subtitle {
+  font-size: var(--font-size-base);
+  color: var(--gray-400);
+  margin-bottom: var(--spacing-8);
+}
+
+/* ─── Formulário ─── */
+.create-event-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+/* ─── Seção / Fieldset ─── */
+.form-section {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-6) var(--spacing-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+}
+
+.form-section__title {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--primary-300);
+  margin-bottom: var(--spacing-2);
+  padding-bottom: var(--spacing-3);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+/* ─── Linhas de campos ─── */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-5);
+}
+
+.form-group--full {
+  grid-column: 1 / -1;
+}
+
+/* ─── Label ─── */
+.form-label {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--gray-300);
+  margin-bottom: var(--spacing-2);
+}
+
+.required {
+  color: #f87171;
+  margin-left: 2px;
+}
+
+.optional {
+  font-size: var(--font-size-xs);
+  color: var(--gray-500);
+  font-weight: 400;
+}
+
+.free-hint {
+  font-size: var(--font-size-xs);
+  color: var(--accent-400);
+  font-weight: 400;
+}
+
+/* ─── Inputs ─── */
+.form-input-wrapper {
+  position: relative;
+}
+
+.form-input-icon {
+  position: absolute;
+  left: var(--spacing-4);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray-500);
+  pointer-events: none;
+  font-size: 1rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: var(--spacing-3) var(--spacing-4) var(--spacing-3) 2.75rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  color: var(--gray-100);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  transition: all var(--transition-normal);
+  outline: none;
+}
+
+.form-input::placeholder { color: var(--gray-600); }
+.form-input:focus {
+  border-color: var(--primary-500);
+  background: rgba(99, 102, 241, 0.06);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+/* ─── Textarea ─── */
+.form-textarea {
+  padding-top: var(--spacing-3);
+  padding-bottom: var(--spacing-3);
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Remover ícone em textarea */
+.form-group--full textarea.form-input {
+  padding-left: var(--spacing-4);
+}
+
+/* ─── Select ─── */
+.form-select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2364748b' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+.form-select option {
+  background: var(--gray-900);
+  color: var(--gray-100);
+}
+
+/* ─── Datetime-local ─── */
+input[type="datetime-local"] {
+  color-scheme: dark;
+}
+
+/* ─── Meta row (erro + contador) ─── */
+.form-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: var(--spacing-1);
+}
+
+/* ─── Contador de caracteres ─── */
+.char-counter {
+  font-size: var(--font-size-xs);
+  color: var(--gray-600);
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+.char-counter.counter-warning {
+  color: var(--color-warning);
+}
+
+/* ─── Hint ─── */
+.form-hint {
+  font-size: var(--font-size-xs);
+  color: var(--gray-500);
+  margin-top: var(--spacing-2);
+  line-height: 1.5;
+}
+
+.form-hint a {
+  color: var(--primary-400);
+}
+
+.form-hint code {
+  background: rgba(255,255,255,0.08);
+  padding: 0.1rem 0.3rem;
+  border-radius: var(--radius-sm);
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+}
+
+/* ─── Preview de imagem ─── */
+.image-preview-wrapper {
+  margin-top: var(--spacing-4);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  max-width: 100%;
+}
+
+.image-preview {
+  width: 100%;
+  max-height: 250px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ─── Ações do formulário ─── */
+.form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-4);
+  padding-top: var(--spacing-2);
+}
+
+.form-actions .btn-secondary {
+  padding: var(--spacing-3) var(--spacing-6);
+}
+
+.form-actions .btn-primary {
+  padding: var(--spacing-4) var(--spacing-8);
+  font-size: var(--font-size-base);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.45);
+}
+
+/* ════════════════════════════════════════════
+   RESPONSIVIDADE – Create Event Page
+   ════════════════════════════════════════════ */
+
+/* ── lg: tablets ── */
+@media (max-width: 1024px) {
+  .create-event-wrapper {
+    max-width: 700px;
+  }
+}
+
+/* ── md: tablets / landscape phones ── */
+@media (max-width: 768px) {
+  .create-event-wrapper {
+    padding: var(--spacing-6) var(--spacing-4) var(--spacing-10);
+    max-width: 100%;
+  }
+
+  .create-event-title {
+    font-size: var(--font-size-3xl);
+  }
+
+  .form-section {
+    padding: var(--spacing-5) var(--spacing-5);
+  }
+
+  /* Grid de 2 → 1 coluna */
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-4);
+  }
+
+  /* Ações em coluna reversa (cancelar embaixo) */
+  .form-actions {
+    flex-direction: column-reverse;
+    gap: var(--spacing-3);
+  }
+
+  .form-actions .btn {
+    width: 100%;
+    justify-content: center;
+    padding: var(--spacing-4);
+  }
+}
+
+/* ── sm: smartphones ── */
+@media (max-width: 480px) {
+  .create-event-wrapper {
+    padding: var(--spacing-4) var(--spacing-3) var(--spacing-8);
+  }
+
+  .create-event-title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .create-event-subtitle {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-5);
+  }
+
+  .form-section {
+    padding: var(--spacing-4);
+    border-radius: var(--radius-lg);
+  }
+
+  .form-section__title {
+    font-size: var(--font-size-sm);
+  }
+
+  /* Inputs mais altos para toque fácil */
+  .form-input {
+    padding-top: 0.875rem;
+    padding-bottom: 0.875rem;
+    font-size: 1rem; /* Evita zoom no iOS */
+  }
+
+  .form-textarea {
+    min-height: 100px;
+  }
+
+  /* Preview menor */
+  .image-preview {
+    max-height: 180px;
+  }
+
+  .form-hint {
+    font-size: 0.65rem;
+  }
+
+  /* Contadores e meta-row */
+  .form-meta-row {
+    flex-direction: column;
+    gap: var(--spacing-1);
+    align-items: flex-start;
+  }
+
+  .char-counter {
+    align-self: flex-end;
+  }
+}
+
+/* ── xs: telas muito pequenas ── */
+@media (max-width: 375px) {
+  .create-event-wrapper {
+    padding: var(--spacing-3) var(--spacing-2) var(--spacing-6);
+  }
+
+  .create-event-title {
+    font-size: var(--font-size-xl);
+  }
+
+  .form-section {
+    padding: var(--spacing-3);
+  }
+}
+

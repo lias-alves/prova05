@@ -1,0 +1,399 @@
+/* ════════════════════════════════════════════
+   auth.css – Estilos de Login e Registro
+   ════════════════════════════════════════════ */
+
+/* ─── Layout Principal ─── */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow-y: auto; /* Permite rolagem vertical */
+  overflow-x: hidden;
+  padding: var(--spacing-6) var(--spacing-4);
+}
+
+/* ─── Fundo Animado com Gradientes ─── */
+.auth-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(ellipse at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 60%),
+              radial-gradient(ellipse at 60% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 60%),
+              var(--gray-950);
+}
+
+/* Partículas flutuantes decorativas */
+.auth-bg::before,
+.auth-bg::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.15;
+  animation: float 8s ease-in-out infinite;
+}
+
+.auth-bg::before {
+  width: 400px;
+  height: 400px;
+  background: var(--primary-600);
+  top: -100px;
+  left: -100px;
+}
+
+.auth-bg::after {
+  width: 300px;
+  height: 300px;
+  background: var(--accent-500);
+  bottom: -80px;
+  right: -80px;
+  animation-delay: -4s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, -20px) scale(1.05); }
+}
+
+/* ─── Container do Card ─── */
+.auth-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 440px;
+}
+
+/* ─── Card de Autenticação ─── */
+.auth-card {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-10) var(--spacing-8);
+  box-shadow: var(--shadow-xl), var(--shadow-glow);
+  animation: slideUp 0.5s ease both;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Cabeçalho do Card ─── */
+.auth-header {
+  text-align: center;
+  margin-bottom: var(--spacing-8);
+}
+
+.auth-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-6);
+}
+
+.auth-logo-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--primary-600), var(--primary-400));
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.5);
+}
+
+.auth-logo-text {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary-300), var(--primary-500));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.auth-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--gray-50);
+  margin-bottom: var(--spacing-2);
+}
+
+.auth-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--gray-400);
+}
+
+/* ─── Formulário ─── */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.form-label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--gray-300);
+}
+
+.form-input-wrapper {
+  position: relative;
+}
+
+.form-input-icon {
+  position: absolute;
+  left: var(--spacing-4);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray-500);
+  font-size: 1rem;
+  pointer-events: none;
+  transition: color var(--transition-fast);
+}
+
+.form-input {
+  width: 100%;
+  padding: var(--spacing-3) var(--spacing-4) var(--spacing-3) 2.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  color: var(--gray-100);
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  transition: all var(--transition-normal);
+  outline: none;
+}
+
+.form-input::placeholder {
+  color: var(--gray-600);
+}
+
+.form-input:focus {
+  border-color: var(--primary-500);
+  background: rgba(99, 102, 241, 0.05);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.form-input:focus + .form-input-icon,
+.form-input-wrapper:focus-within .form-input-icon {
+  color: var(--primary-400);
+}
+
+/* Ícone à direita (toggle senha) */
+.form-input.has-right-icon {
+  padding-right: 2.75rem;
+}
+
+.form-input-right-icon {
+  position: absolute;
+  right: var(--spacing-4);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray-500);
+  cursor: pointer;
+  font-size: 1rem;
+  background: none;
+  border: none;
+  transition: color var(--transition-fast);
+}
+
+.form-input-right-icon:hover { color: var(--gray-300); }
+
+/* ─── Botão de Envio ─── */
+.auth-form .btn-primary {
+  width: 100%;
+  padding: var(--spacing-4);
+  font-size: var(--font-size-base);
+  border-radius: var(--radius-lg);
+  margin-top: var(--spacing-2);
+}
+
+/* ─── Rodapé do Card ─── */
+.auth-footer {
+  text-align: center;
+  margin-top: var(--spacing-6);
+  font-size: var(--font-size-sm);
+  color: var(--gray-500);
+}
+
+.auth-footer a {
+  font-weight: 600;
+  color: var(--primary-400);
+  text-decoration: none;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ─── Divisor ─── */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  color: var(--gray-600);
+  font-size: var(--font-size-xs);
+  margin: var(--spacing-2) 0;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--glass-border);
+}
+
+/* ─── Demo Credentials ─── */
+.demo-credentials {
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+  margin-top: var(--spacing-4);
+}
+
+.demo-credentials p {
+  font-size: var(--font-size-xs);
+  color: var(--gray-400);
+  margin-bottom: var(--spacing-2);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.demo-credentials code {
+  display: block;
+  font-family: 'Courier New', monospace;
+  font-size: var(--font-size-sm);
+  color: var(--primary-300);
+  line-height: 1.8;
+}
+
+/* ════════════════════════════════════════════
+   RESPONSIVIDADE – Auth Pages
+   ════════════════════════════════════════════ */
+
+/* ── md: tablets ── */
+@media (max-width: 768px) {
+  .auth-page {
+    padding: var(--spacing-4);
+    align-items: flex-start;
+    padding-top: var(--spacing-10);
+  }
+
+  .auth-container {
+    max-width: 100%;
+  }
+
+  .auth-card {
+    padding: var(--spacing-8) var(--spacing-6);
+    border-radius: var(--radius-xl);
+  }
+
+  .auth-title {
+    font-size: var(--font-size-xl);
+  }
+
+  .auth-logo-text {
+    font-size: var(--font-size-xl);
+  }
+
+  /* Desativa blur pesado em dispositivos mais fracos */
+  .auth-card {
+    backdrop-filter: blur(12px);
+  }
+}
+
+/* ── sm: smartphones ── */
+@media (max-width: 480px) {
+  .auth-page {
+    padding: var(--spacing-3);
+    padding-top: var(--spacing-8);
+  }
+
+  .auth-card {
+    padding: var(--spacing-6) var(--spacing-4);
+    border-radius: var(--radius-lg);
+    /* Ocupa mais espaço vertical em telas pequenas */
+    box-shadow: var(--shadow-lg);
+  }
+
+  .auth-header {
+    margin-bottom: var(--spacing-5);
+  }
+
+  .auth-logo {
+    margin-bottom: var(--spacing-4);
+  }
+
+  .auth-logo-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 1.2rem;
+  }
+
+  .auth-title {
+    font-size: var(--font-size-lg);
+  }
+
+  .auth-subtitle {
+    font-size: var(--font-size-xs);
+  }
+
+  /* Inputs com padding maior para toque fácil */
+  .form-input {
+    padding-top: 0.875rem;
+    padding-bottom: 0.875rem;
+    font-size: var(--font-size-base); /* Evita zoom no iOS (mín 16px) */
+  }
+
+  .auth-form .btn-primary {
+    padding: var(--spacing-4);
+    font-size: var(--font-size-base);
+  }
+
+  .auth-form {
+    gap: var(--spacing-4);
+  }
+
+  /* Credenciais demo menores */
+  .demo-credentials {
+    padding: var(--spacing-3);
+  }
+
+  .demo-credentials code {
+    font-size: var(--font-size-xs);
+  }
+}
+
+/* ── xs: telas muito pequenas ── */
+@media (max-width: 375px) {
+  .auth-card {
+    padding: var(--spacing-5) var(--spacing-3);
+  }
+
+  .auth-form {
+    gap: var(--spacing-3);
+  }
+}
+

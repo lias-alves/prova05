@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EventHub – Detalhes e inscrição no evento.">
+  <title>Evento | EventHub</title>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/events.css">
+</head>
+<body class="detail-page">
+
+  <!-- ══ NAVBAR ══ -->
+  <nav class="navbar" role="navigation" aria-label="Navegação principal">
+    <div class="navbar__inner">
+      <a href="events.html" class="navbar__brand" aria-label="EventHub - Voltar à lista">
+        <div class="navbar__logo-icon" aria-hidden="true">🎫</div>
+        <span class="navbar__brand-name">EventHub</span>
+      </a>
+      <div class="navbar__actions">
+        <div class="navbar__user">
+          <div class="navbar__avatar" aria-hidden="true">👤</div>
+          <span class="navbar__username" id="user-name">Usuário</span>
+        </div>
+        <button id="logout-btn" class="btn-logout" aria-label="Sair da conta">🚪 Sair</button>
+      </div>
+    </div>
+  </nav>
+
+  <main role="main">
+
+    <!-- ══ HERO COM IMAGEM ══ -->
+    <div class="detail-hero" aria-hidden="true">
+      <img id="detail-hero-img" src="" alt="Imagem do evento" loading="lazy">
+      <div class="detail-hero__overlay"></div>
+
+      <!-- Botão Voltar -->
+      <a href="events.html" class="detail-hero__back" aria-label="Voltar para lista de eventos">
+        ← Voltar
+      </a>
+    </div>
+
+    <!-- ══ CONTEÚDO DO DETALHE ══ -->
+    <div class="detail-content">
+      <article class="detail-card" role="article">
+
+        <!-- Cabeçalho -->
+        <header class="detail-card__header">
+          <div id="detail-category" class="detail-card__category" aria-label="Categoria"></div>
+          <h1 id="detail-title">Carregando evento...</h1>
+        </header>
+
+        <!-- Corpo: Descrição + Sidebar ──────────────── -->
+        <div class="detail-card__body">
+
+          <!-- Coluna principal: Descrição -->
+          <section class="detail-main" aria-labelledby="desc-heading">
+            <h2 class="detail-section-title" id="desc-heading">Sobre o Evento</h2>
+            <p id="detail-description">Carregando...</p>
+
+            <!-- Alerta de inscrição -->
+            <div id="register-alert" class="alert" role="alert" aria-live="polite"></div>
+          </section>
+
+          <!-- Sidebar: Info + Inscrição -->
+          <aside class="detail-sidebar" aria-label="Informações do evento">
+
+            <!-- Data e Hora -->
+            <div class="detail-info-item">
+              <span class="detail-info-label">📅 Data e Hora</span>
+              <span id="detail-date" class="detail-info-value">—</span>
+            </div>
+
+            <!-- Local -->
+            <div class="detail-info-item">
+              <span class="detail-info-label">📍 Local</span>
+              <span id="detail-location" class="detail-info-value">—</span>
+            </div>
+
+            <!-- Instrutor -->
+            <div class="detail-info-item">
+              <span class="detail-info-label">👤 Responsável</span>
+              <span id="detail-instructor" class="detail-info-value">—</span>
+            </div>
+
+            <!-- Preço -->
+            <div class="detail-info-item">
+              <span class="detail-info-label">💰 Investimento</span>
+              <span id="detail-price" class="detail-info-value">—</span>
+            </div>
+
+            <!-- Barra de vagas -->
+            <div class="progress-wrapper" aria-label="Disponibilidade de vagas">
+              <div class="progress-label">
+                <span id="detail-progress">0 / 0 inscritos</span>
+              </div>
+              <div class="progress-track" role="progressbar" aria-label="Vagas ocupadas">
+                <div id="detail-progress-bar" class="progress-bar available" style="width: 0%"></div>
+              </div>
+              <span id="detail-availability" class="availability-badge available">Vagas disponíveis</span>
+            </div>
+
+            <!-- Botão de Inscrição -->
+            <button id="register-btn" class="btn btn-primary" aria-label="Inscrever-se neste evento">
+              🎟️ Inscrever-se
+            </button>
+
+            <!-- Botão de Exclusão (visível só para criador/admin – controlado pelo JS) -->
+            <button id="detail-delete-btn" class="btn btn-danger hidden" aria-label="Excluir este evento">
+              🗑️ Excluir Evento
+            </button>
+
+          </aside>
+        </div>
+
+      </article>
+    </div>
+
+  </main>
+
+  <!-- Scripts -->
+  <script src="../services/storage.js"></script>
+  <script src="../services/api.js"></script>
+  <script src="../controllers/authController.js"></script>
+  <script src="../controllers/eventsController.js"></script>
+  <script>
+    (async function () {
+      const user = await AuthController.init('event-detail');
+      if (user) {
+        await EventsController.initDetail(user);
+      }
+    })();
+  </script>
+</body>
+</html>

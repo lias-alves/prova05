@@ -1,0 +1,26 @@
+[
+  {
+    "id": "usr-001",
+    "name": "Administrador",
+    "email": "admin@email.com",
+    "password": "123456",
+    "role": "admin",
+    "createdAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "usr-002",
+    "name": "Maria Silva",
+    "email": "maria@email.com",
+    "password": "123456",
+    "role": "user",
+    "createdAt": "2025-02-15T10:30:00.000Z"
+  },
+  {
+    "id": "usr-003",
+    "name": "João Souza",
+    "email": "joao@email.com",
+    "password": "senha123",
+    "role": "user",
+    "createdAt": "2025-03-01T08:00:00.000Z"
+  }
+]

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EventHub – Cadastre um novo evento universitário.">
+  <title>Criar Evento | EventHub</title>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/events.css">
+  <link rel="stylesheet" href="../assets/css/create-event.css">
+</head>
+<body class="events-page">
+
+  <!-- ══ NAVBAR ══ -->
+  <nav class="navbar" role="navigation" aria-label="Navegação principal">
+    <div class="navbar__inner">
+      <a href="events.html" class="navbar__brand" aria-label="EventHub - Voltar à lista">
+        <div class="navbar__logo-icon" aria-hidden="true">🎫</div>
+        <span class="navbar__brand-name">EventHub</span>
+      </a>
+      <div class="navbar__actions">
+        <div class="navbar__user">
+          <div class="navbar__avatar" aria-hidden="true">👤</div>
+          <span class="navbar__username" id="user-name">Usuário</span>
+        </div>
+        <button id="logout-btn" class="btn-logout" aria-label="Sair da conta">🚪 Sair</button>
+      </div>
+    </div>
+  </nav>
+
+  <main role="main">
+    <div class="create-event-wrapper">
+
+      <!-- Cabeçalho da página -->
+      <div class="create-event-header">
+        <a href="events.html" class="back-link" aria-label="Voltar para eventos">
+          ← Voltar para Eventos
+        </a>
+        <h1 class="create-event-title">✨ Criar Novo Evento</h1>
+        <p class="create-event-subtitle">Preencha os dados abaixo para publicar seu evento na plataforma</p>
+      </div>
+
+      <!-- Alerta global -->
+      <div id="create-alert" class="alert" role="alert" aria-live="polite"></div>
+
+      <!-- Formulário Principal -->
+      <form id="create-event-form" class="create-event-form" novalidate>
+
+        <!-- ── SEÇÃO 1: Informações Básicas ── -->
+        <fieldset class="form-section">
+          <legend class="form-section__title">📋 Informações Básicas</legend>
+
+          <div class="form-row">
+            <!-- Título -->
+            <div class="form-group form-group--full">
+              <label class="form-label" for="evt-title">
+                Título do Evento <span class="required">*</span>
+              </label>
+              <div class="form-input-wrapper">
+                <input
+                  type="text"
+                  id="evt-title"
+                  name="title"
+                  class="form-input"
+                  placeholder="Ex: Workshop de Inteligência Artificial"
+                  maxlength="100"
+                  required
+                  aria-describedby="title-error title-counter"
+                >
+                <span class="form-input-icon" aria-hidden="true">📝</span>
+              </div>
+              <div class="form-meta-row">
+                <span id="title-error" class="error-message" role="alert"></span>
+                <span id="title-counter" class="char-counter">0/100</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <!-- Categoria -->
+            <div class="form-group">
+              <label class="form-label" for="evt-category">
+                Categoria <span class="required">*</span>
+              </label>
+              <div class="form-input-wrapper">
+                <select id="evt-category" name="category" class="form-input form-select" required>
+                  <option value="">Selecione uma categoria...</option>
+                  <option value="tecnologia">💻 Tecnologia</option>
+                  <option value="academico">🎓 Acadêmico</option>
+                  <option value="hackathon">⚡ Hackathon</option>
+                  <option value="palestra">🎤 Palestra</option>
+                  <option value="empreendedorismo">🚀 Empreendedorismo</option>
+                  <option value="esporte">🏆 Esporte</option>
+                  <option value="cultura">🎭 Cultura</option>
+                </select>
+                <span class="form-input-icon" aria-hidden="true">🏷️</span>
+              </div>
+              <span id="category-error" class="error-message" role="alert"></span>
+            </div>
+
+            <!-- Responsável -->
+            <div class="form-group">
+              <label class="form-label" for="evt-instructor">
+                Responsável / Instrutor
+              </label>
+              <div class="form-input-wrapper">
+                <input
+                  type="text"
+                  id="evt-instructor"
+                  name="instructor"
+                  class="form-input"
+                  placeholder="Ex: Prof. João Silva"
+                >
+                <span class="form-input-icon" aria-hidden="true">👤</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Descrição -->
+          <div class="form-group form-group--full">
+            <label class="form-label" for="evt-description">
+              Descrição <span class="required">*</span>
+            </label>
+            <textarea
+              id="evt-description"
+              name="description"
+              class="form-input form-textarea"
+              placeholder="Descreva o evento com detalhes: conteúdo, objetivos, público-alvo..."
+              rows="5"
+              maxlength="800"
+              required
+              aria-describedby="description-error desc-counter"
+            ></textarea>
+            <div class="form-meta-row">
+              <span id="description-error" class="error-message" role="alert"></span>
+              <span id="desc-counter" class="char-counter">0/800</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- ── SEÇÃO 2: Data, Hora e Local ── -->
+        <fieldset class="form-section">
+          <legend class="form-section__title">📅 Data, Hora e Local</legend>
+
+          <div class="form-row">
+            <!-- Data de início -->
+            <div class="form-group">
+              <label class="form-label" for="evt-date">
+                Data e Hora de Início <span class="required">*</span>
+              </label>
+              <div class="form-input-wrapper">
+                <input
+                  type="datetime-local"
+                  id="evt-date"
+                  name="date"
+                  class="form-input"
+                  required
+                  aria-describedby="date-error"
+                >
+                <span class="form-input-icon" aria-hidden="true">📅</span>
+              </div>
+              <span id="date-error" class="error-message" role="alert"></span>
+            </div>
+
+            <!-- Data de término -->
+            <div class="form-group">
+              <label class="form-label" for="evt-end-date">
+                Data e Hora de Término
+              </label>
+              <div class="form-input-wrapper">
+                <input
+                  type="datetime-local"
+                  id="evt-end-date"
+                  name="endDate"
+                  class="form-input"
+                >
+                <span class="form-input-icon" aria-hidden="true">🏁</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Local -->
+          <div class="form-group form-group--full">
+            <label class="form-label" for="evt-location">
+              Local <span class="required">*</span>
+            </label>
+            <div class="form-input-wrapper">
+              <input
+                type="text"
+                id="evt-location"
+                name="location"
+                class="form-input"
+                placeholder="Ex: Auditório Central – Bloco A, Campus Universitário"
+                required
+                aria-describedby="location-error"
+              >
+              <span class="form-input-icon" aria-hidden="true">📍</span>
+            </div>
+            <span id="location-error" class="error-message" role="alert"></span>
+          </div>
+        </fieldset>
+
+        <!-- ── SEÇÃO 3: Vagas e Preço ── -->
+        <fieldset class="form-section">
+          <legend class="form-section__title">🎟️ Vagas e Ingresso</legend>
+
+          <div class="form-row">
+            <!-- Capacidade -->
+            <div class="form-group">
+              <label class="form-label" for="evt-capacity">
+                Capacidade (vagas) <span class="required">*</span>
+              </label>
+              <div class="form-input-wrapper">
+                <input
+                  type="number"
+                  id="evt-capacity"
+                  name="capacity"
+                  class="form-input"
+                  placeholder="Ex: 100"
+                  min="1"
+                  max="10000"
+                  required
+                  aria-describedby="capacity-error"
+                >
+                <span class="form-input-icon" aria-hidden="true">👥</span>
+              </div>
+              <span id="capacity-error" class="error-message" role="alert"></span>
+            </div>
+
+            <!-- Preço -->
+            <div class="form-group">
+              <label class="form-label" for="evt-price">
+                Preço (R$) <span class="free-hint">— deixe 0 para gratuito</span>
+              </label>
+              <div class="form-input-wrapper">
+                <input
+                  type="number"
+                  id="evt-price"
+                  name="price"
+                  class="form-input"
+                  placeholder="0.00"
+                  min="0"
+                  step="0.01"
+                  value="0"
+                >
+                <span class="form-input-icon" aria-hidden="true">💰</span>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- ── SEÇÃO 4: Imagem ── -->
+        <fieldset class="form-section">
+          <legend class="form-section__title">🖼️ Imagem de Capa</legend>
+
+          <div class="form-group form-group--full">
+            <label class="form-label" for="evt-image">
+              URL da Imagem <span class="optional">(opcional)</span>
+            </label>
+            <div class="form-input-wrapper">
+              <input
+                type="url"
+                id="evt-image"
+                name="image"
+                class="form-input"
+                placeholder="https://images.unsplash.com/... (deixe vazio para imagem padrão)"
+                aria-describedby="image-hint"
+              >
+              <span class="form-input-icon" aria-hidden="true">🔗</span>
+            </div>
+            <span id="image-hint" class="form-hint">
+              💡 Dica: use imagens do <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a> adicionando <code>?w=800&q=80</code> ao final
+            </span>
+          </div>
+
+          <!-- Preview da imagem -->
+          <div id="image-preview-wrapper" class="image-preview-wrapper" hidden>
+            <p class="form-hint">Preview:</p>
+            <img id="image-preview" src="" alt="Preview da capa do evento" class="image-preview">
+          </div>
+        </fieldset>
+
+        <!-- ── AÇÕES ── -->
+        <div class="form-actions">
+          <a href="events.html" class="btn btn-secondary">Cancelar</a>
+          <button type="submit" id="create-submit-btn" class="btn btn-primary">
+            🚀 Publicar Evento
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="../services/storage.js"></script>
+  <script src="../services/api.js"></script>
+  <script src="../controllers/authController.js"></script>
+  <script src="../controllers/eventsController.js"></script>
+  <script>
+    (async function () {
+      // Rota protegida
+      const user = await AuthController.init('events');
+      if (!user) return;
+
+      // Mostra nome do usuário na navbar
+      const userNameEl = document.getElementById('user-name');
+      if (userNameEl) userNameEl.textContent = user.name;
+
+      // Logout
+      document.getElementById('logout-btn').addEventListener('click', AuthController.handleLogout);
+
+      // ── Contador de caracteres ──
+      function setupCounter(inputId, counterId, max) {
+        const input = document.getElementById(inputId);
+        const counter = document.getElementById(counterId);
+        if (!input || !counter) return;
+        input.addEventListener('input', () => {
+          const len = input.value.length;
+          counter.textContent = `${len}/${max}`;
+          counter.classList.toggle('counter-warning', len > max * 0.9);
+        });
+      }
+      setupCounter('evt-title', 'title-counter', 100);
+      setupCounter('evt-description', 'desc-counter', 800);
+
+      // ── Preview de imagem ──
+      const imageInput = document.getElementById('evt-image');
+      const previewWrapper = document.getElementById('image-preview-wrapper');
+      const previewImg = document.getElementById('image-preview');
+      let previewTimer;
+
+      imageInput.addEventListener('input', () => {
+        clearTimeout(previewTimer);
+        previewTimer = setTimeout(() => {
+          const url = imageInput.value.trim();
+          if (url) {
+            previewImg.src = url;
+            previewImg.onload = () => previewWrapper.removeAttribute('hidden');
+            previewImg.onerror = () => previewWrapper.setAttribute('hidden', '');
+          } else {
+            previewWrapper.setAttribute('hidden', '');
+          }
+        }, 600);
+      });
+
+      // ── Data mínima = agora ──
+      const dateInput = document.getElementById('evt-date');
+      const now = new Date();
+      now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+      dateInput.min = now.toISOString().slice(0, 16);
+
+      // ── Validadores ──
+      function showFieldError(id, msg) {
+        const el = document.getElementById(id);
+        if (el) { el.textContent = msg; el.classList.add('visible'); }
+      }
+      function clearErrors() {
+        document.querySelectorAll('.error-message').forEach(el => {
+          el.textContent = '';
+          el.classList.remove('visible');
+        });
+      }
+      function showAlert(type, msg) {
+        const el = document.getElementById('create-alert');
+        el.textContent = msg;
+        el.className = `alert alert-${type} visible`;
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => el.classList.remove('visible'), 6000);
+      }
+
+      // ── Submit ──
+      document.getElementById('create-event-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        clearErrors();
+
+        const form = e.target;
+        const data = {
+          title:       form.title.value,
+          description: form.description.value,
+          date:        form.date.value,
+          endDate:     form.endDate.value || form.date.value,
+          location:    form.location.value,
+          category:    form.category.value,
+          instructor:  form.instructor.value,
+          capacity:    form.capacity.value,
+          price:       form.price.value,
+          image:       form.image.value,
+        };
+
+        // Validações front-end
+        let valid = true;
+
+        if (!data.title || data.title.trim().length < 5) {
+          showFieldError('title-error', 'O título deve ter pelo menos 5 caracteres.');
+          valid = false;
+        }
+        if (!data.category) {
+          showFieldError('category-error', 'Selecione uma categoria.');
+          valid = false;
+        }
+        if (!data.description || data.description.trim().length < 10) {
+          showFieldError('description-error', 'A descrição deve ter pelo menos 10 caracteres.');
+          valid = false;
+        }
+        if (!data.date) {
+          showFieldError('date-error', 'Informe a data e hora de início.');
+          valid = false;
+        } else if (new Date(data.date) < new Date()) {
+          showFieldError('date-error', 'A data não pode estar no passado.');
+          valid = false;
+        }
+        if (!data.location || data.location.trim().length < 3) {
+          showFieldError('location-error', 'Informe o local do evento.');
+          valid = false;
+        }
+        if (!data.capacity || parseInt(data.capacity) < 1) {
+          showFieldError('capacity-error', 'Informe a capacidade mínima de 1 pessoa.');
+          valid = false;
+        }
+
+        if (!valid) {
+          showAlert('error', 'Corrija os erros acima antes de publicar.');
+          return;
+        }
+
+        // Enviar para API
+        const btn = document.getElementById('create-submit-btn');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner"></span> Publicando...';
+
+        const result = await EventsAPI.create(data, user.id);
+
+        if (result.success) {
+          showAlert('success', result.message + ' Redirecionando...');
+          setTimeout(() => {
+            window.location.href = 'events.html';
+          }, 1800);
+        } else {
+          btn.disabled = false;
+          btn.innerHTML = '🚀 Publicar Evento';
+          showAlert('error', result.message);
+        }
+      });
+
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EventHub – Faça login para acessar sua conta e explorar eventos.">
+  <title>Login | EventHub</title>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/auth.css">
+</head>
+<body class="auth-page">
+
+  <div class="auth-bg" aria-hidden="true"></div>
+
+  <main class="auth-container" role="main">
+    <div class="auth-card">
+
+      <!-- Logo -->
+      <header class="auth-header">
+        <div class="auth-logo">
+          <div class="auth-logo-icon" aria-hidden="true">🎫</div>
+          <span class="auth-logo-text">EventHub</span>
+        </div>
+        <h1 class="auth-title">Bem-vindo de volta!</h1>
+        <p class="auth-subtitle">Faça login para acessar sua conta</p>
+      </header>
+
+      <!-- Alerta de sucesso/erro -->
+      <div id="auth-alert" class="alert" role="alert" aria-live="polite"></div>
+
+      <!-- Formulário de Login -->
+      <form id="login-form" class="auth-form" novalidate autocomplete="on">
+
+        <!-- Campo E-mail -->
+        <div class="form-group">
+          <label class="form-label" for="login-email">E-mail</label>
+          <div class="form-input-wrapper">
+            <input
+              type="email"
+              id="login-email"
+              name="email"
+              class="form-input"
+              placeholder="seu@email.com"
+              autocomplete="email"
+              required
+              aria-describedby="email-error"
+            >
+            <span class="form-input-icon" aria-hidden="true">📧</span>
+          </div>
+          <span id="email-error" class="error-message" role="alert"></span>
+        </div>
+
+        <!-- Campo Senha -->
+        <div class="form-group">
+          <label class="form-label" for="login-password">Senha</label>
+          <div class="form-input-wrapper">
+            <input
+              type="password"
+              id="login-password"
+              name="password"
+              class="form-input has-right-icon"
+              placeholder="Sua senha"
+              autocomplete="current-password"
+              required
+              aria-describedby="password-error"
+            >
+            <span class="form-input-icon" aria-hidden="true">🔒</span>
+            <button
+              type="button"
+              class="form-input-right-icon"
+              id="toggle-password"
+              aria-label="Mostrar/ocultar senha"
+            >👁️</button>
+          </div>
+          <span id="password-error" class="error-message" role="alert"></span>
+        </div>
+
+        <!-- Botão de Login -->
+        <button type="submit" id="login-submit" class="btn btn-primary">
+          Entrar
+        </button>
+
+      </form>
+
+      <!-- Credenciais de demonstração -->
+      <div class="demo-credentials" role="note" aria-label="Credenciais de demonstração">
+        <p>🔑 Credenciais de demo</p>
+        <code>admin@email.com / 123456</code>
+        <code>maria@email.com / 123456</code>
+      </div>
+
+      <!-- Link para Registro -->
+      <footer class="auth-footer">
+        <p>Não tem uma conta? <a href="register.html" id="go-to-register">Cadastre-se grátis</a></p>
+      </footer>
+
+    </div>
+  </main>
+
+  <!-- Scripts (ordem importa: storage → api → controller) -->
+  <script src="../services/storage.js"></script>
+  <script src="../services/api.js"></script>
+  <script src="../controllers/authController.js"></script>
+  <script>
+    // Inicializa o controller na página de login
+    AuthController.init('login');
+
+    // Toggle de visibilidade da senha
+    document.getElementById('toggle-password').addEventListener('click', function () {
+      const input = document.getElementById('login-password');
+      const isPassword = input.type === 'password';
+      input.type = isPassword ? 'text' : 'password';
+      this.textContent = isPassword ? '🔒' : '👁️';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EventHub – Explore e inscreva-se em eventos universitários incríveis.">
+  <title>Eventos | EventHub</title>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/events.css">
+</head>
+<body class="events-page">
+
+  <!-- ══ NAVBAR ══ -->
+  <nav class="navbar" role="navigation" aria-label="Navegação principal">
+    <div class="navbar__inner">
+      <a href="events.html" class="navbar__brand" aria-label="EventHub - Página inicial">
+        <div class="navbar__logo-icon" aria-hidden="true">🎫</div>
+        <span class="navbar__brand-name">EventHub</span>
+      </a>
+
+      <div class="navbar__actions">
+        <div class="navbar__user" aria-label="Usuário logado">
+          <div class="navbar__avatar" aria-hidden="true">👤</div>
+          <span class="navbar__username" id="user-name">Usuário</span>
+        </div>
+        <a href="create-event.html" id="create-event-btn" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.8rem;">
+          ➕ Novo Evento
+        </a>
+        <button
+          id="logout-btn"
+          class="btn-logout"
+          aria-label="Sair da conta"
+          title="Sair"
+        >
+          🚪 Sair
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main role="main">
+
+    <!-- ══ HERO ══ -->
+    <section class="events-hero" aria-labelledby="events-page-title">
+      <h1 class="events-hero__title" id="events-page-title">
+        Descubra <span>Eventos</span> Incríveis
+      </h1>
+      <p class="events-hero__subtitle">Explore, participe e conecte-se nos melhores eventos da universidade</p>
+    </section>
+
+    <!-- ══ CONTROLES ══ -->
+    <section class="events-controls" aria-label="Filtros e busca">
+
+      <!-- Busca -->
+      <div class="search-wrapper" role="search">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input
+          type="search"
+          id="search-input"
+          placeholder="Buscar por título, local ou descrição..."
+          aria-label="Buscar eventos"
+          autocomplete="off"
+        >
+        <button id="clear-search" aria-label="Limpar busca" title="Limpar">✕</button>
+      </div>
+
+      <!-- Filtros por categoria -->
+      <div class="filters-row" role="group" aria-label="Filtrar por categoria">
+        <span class="filters-label">Categorias:</span>
+        <button class="filter-btn active" data-category="todos" aria-pressed="true">Todos</button>
+        <button class="filter-btn" data-category="tecnologia" aria-pressed="false">💻 Tecnologia</button>
+        <button class="filter-btn" data-category="academico" aria-pressed="false">🎓 Acadêmico</button>
+        <button class="filter-btn" data-category="hackathon" aria-pressed="false">⚡ Hackathon</button>
+        <button class="filter-btn" data-category="palestra" aria-pressed="false">🎤 Palestra</button>
+        <button class="filter-btn" data-category="empreendedorismo" aria-pressed="false">🚀 Empreend.</button>
+        <button class="filter-btn" data-category="esporte" aria-pressed="false">🏆 Esporte</button>
+        <button class="filter-btn" data-category="cultura" aria-pressed="false">🎭 Cultura</button>
+      </div>
+
+    </section>
+
+    <!-- Contador de resultados -->
+    <div class="events-count-wrapper" aria-live="polite">
+      <span id="events-count" aria-label="Quantidade de eventos encontrados"></span>
+    </div>
+
+    <!-- ══ GRID DE EVENTOS ══ -->
+    <section
+      id="events-grid"
+      class="events-grid"
+      aria-label="Lista de eventos"
+      aria-live="polite"
+      aria-busy="true"
+    >
+      <!-- Conteúdo renderizado dinamicamente pelo EventsController -->
+    </section>
+
+  </main>
+
+  <!-- Scripts (ordem importa) -->
+  <script src="../services/storage.js"></script>
+  <script src="../services/api.js"></script>
+  <script src="../controllers/authController.js"></script>
+  <script src="../controllers/eventsController.js"></script>
+  <script>
+    (async function () {
+      // Verificar autenticação (rota protegida)
+      const user = await AuthController.init('events');
+      if (user) {
+        // Inicializa o controller de eventos com o usuário autenticado
+        await EventsController.initList(user);
+        document.getElementById('events-grid').setAttribute('aria-busy', 'false');
+      }
+    })();
+  </script>
+</body>
+</html>
