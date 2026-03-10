@@ -11,6 +11,18 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
+// Serve static frontend files (HTML, CSS, JS)
+app.use(express.static(path.join(__dirname)));
+app.use('/views', express.static(path.join(__dirname, 'views')));
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
+app.use('/controllers', express.static(path.join(__dirname, 'controllers')));
+app.use('/services', express.static(path.join(__dirname, 'services')));
+
+// Explicitly serve index.html for the root route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 // Set up SQLite database
 const dbPath = path.join(__dirname, 'database.sqlite');
 const db = new sqlite3.Database(dbPath, (err) => {
